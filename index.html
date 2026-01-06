@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Design - Ise chhedne ki zaroorat nahi hai */
+        :root { --p: #ff4d8d; --b: #1a1a1a; --w: #ffffff; --g: #f9f9f9; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+        body { background: var(--w); color: var(--b); }
+        .promo { background: var(--b); color: white; text-align: center; padding: 10px; font-size: 12px; letter-spacing: 1px; }
+        
+        /* Hero Section */
+        .hero { 
+            height: 70vh; 
+            background-size: cover !important; 
+            background-position: center !important; 
+            display: flex; align-items: center; justify-content: center; text-align: center; color: white;
+            position: relative;
+        }
+        .hero::after { content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); }
+        .hero-content { position: relative; z-index: 2; padding: 20px; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 10px; }
+        
+        /* Products */
+        .container { padding: 50px 10%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card { background: var(--g); padding: 15px; text-align: center; border-radius: 10px; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .prod-img { height: 350px; background-size: cover !important; background-position: center !important; border-radius: 8px; margin-bottom: 15px; }
+        .price { color: var(--p); font-weight: bold; font-size: 20px; margin: 10px 0; }
+        
+        .btn { background: var(--b); color: white; padding: 12px 30px; text-decoration: none; display: inline-block; border-radius: 5px; font-weight: 600; transition: 0.3s; }
+        .btn:hover { background: var(--p); }
+
+        .wa-btn { position: fixed; bottom: 30px; right: 30px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 999; }
+        @media (max-width: 768px) { .hero h1 { font-size: 2rem; } .container { padding: 30px 5%; } }
+    </style>
+</head>
+<body>
+
+    <div class="promo" id="promoText">Loading...</div>
+
+    <section class="hero" id="heroBg">
+        <div class="hero-content">
+            <h1 id="heroTitle">Loading...</h1>
+            <p id="heroSub">Loading...</p>
+            <br>
+            <a href="#shop" class="btn" style="background:var(--p)">SHOP NOW</a>
+        </div>
+    </section>
+
+    <div class="container" id="shop">
+        <h2 style="text-align:center; font-family:'Playfair Display'; font-size: 2rem; margin-bottom: 40px;">New Arrivals</h2>
+        <div class="grid" id="productGrid">
+            </div>
+    </div>
+
+    <a href="" id="waLink" class="wa-btn" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35">
+    </a>
+
+    <footer style="text-align:center; padding:50px; background:var(--g); margin-top:50px;">
+        <h2 id="footerBrand">Brand Name</h2>
+        <p>© 2026 Privacy Guaranteed</p>
+    </footer>
+
+    <script>
+        const SETTINGS = {
+            brandName: "Luxe Intimates",
+            promoMessage: "🔒 100% DISCREET PACKAGING - Koi naam nahi, sirf aapka sukoon",
+            whatsappNumber: "919876543210", // Apna number yahan likhein
+            
+            // Hero Section (Badi image aur text)
+            hero: {
+                title: "Confidence Is Beautiful",
+                subText: "Premium fabrics designed for your comfort.",
+                bgImage: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1920" 
+            },
+
+            // Products List (Yahan se rate aur image badlein)
+            products: [
+                {
+                    name: "Silk Comfort Bra",
+                    price: "₹899",
+                    image: "https://images.unsplash.com/photo-1551326844-4df70f78d0e9?w=500"
+                },
+                {
+                    name: "Lace Panty Set",
+                    price: "₹599",
+                    image: "https://images.unsplash.com/photo-1590510326499-f3c33351d423?w=500"
+                },
+                {
+                    name: "Seamless Everyday",
+                    price: "₹749",
+                    image: "https://images.unsplash.com/photo-1616150840617-a0629007469a?w=500"
+                }
+            ]
+        };
+
+        // Page ko update karne wala logic (Ise mat chhediye)
+        document.getElementById('promoText').innerText = SETTINGS.promoMessage;
+        document.getElementById('heroTitle').innerText = SETTINGS.hero.title;
+        document.getElementById('heroSub').innerText = SETTINGS.hero.subText;
+        document.getElementById('heroBg').style.background = `url('${SETTINGS.hero.bgImage}')`;
+        document.getElementById('waLink').href = `https://wa.me/${SETTINGS.whatsappNumber}`;
+        document.getElementById('footerBrand').innerText = SETTINGS.brandName;
+
+        const grid = document.getElementById('productGrid');
+        SETTINGS.products.forEach(p => {
+            grid.innerHTML += `
+                <div class="card">
+                    <div class="prod-img" style="background: url('${p.image}')"></div>
+                    <h3>${p.name}</h3>
+                    <p class="price">${p.price}</p>
+                    <a href="https://wa.me/${SETTINGS.whatsappNumber}?text=I want to buy ${p.name}" class="btn">ORDER ON WHATSAPP</a>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
